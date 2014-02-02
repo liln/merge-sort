@@ -21,20 +21,16 @@ class MergeSort
     while !left.empty? || !right.empty?
       if !left.empty? && !right.empty?
         if left.first < right.first
-          sorted << left.first
-          left = left.drop(1)
+          sorted << left.shift
         else
-          sorted << right.first
-          right = right.drop(1)
+          sorted << right.shift
         end
       elsif left.empty?
-        sorted << right
-        right = []
+        sorted.concat(right.pop(right.length))
       else
-        sorted << left
-        left = []
+        sorted.concat(left.pop(left.length))
       end
     end
-    sorted.flatten
+    sorted
   end
 end
