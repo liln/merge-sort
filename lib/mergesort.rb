@@ -3,9 +3,7 @@ class MergeSort
   end
 
   def sort(a)
-    if a.length <= 1
-      return a
-    end
+    return a if a.length <= 1
 
     middle = a.length / 2
     left = a[0 .. middle-1]
@@ -16,21 +14,22 @@ class MergeSort
     merge(left, right)
   end
 
-  def merge(left,right)
-    sorted = Array.new
-    while !left.empty? || !right.empty?
-      if !left.empty? && !right.empty?
-        if left.first < right.first
-          sorted << left.shift
+  private
+    def merge(left,right)
+      sorted = Array.new
+      while !left.empty? || !right.empty?
+        if !left.empty? && !right.empty?
+          if left.first < right.first
+            sorted << left.shift
+          else
+            sorted << right.shift
+          end
+        elsif left.empty?
+          sorted.concat(right.pop(right.length))
         else
-          sorted << right.shift
+          sorted.concat(left.pop(left.length))
         end
-      elsif left.empty?
-        sorted.concat(right.pop(right.length))
-      else
-        sorted.concat(left.pop(left.length))
       end
+      sorted
     end
-    sorted
-  end
 end
